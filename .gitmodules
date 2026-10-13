@@ -1,0 +1,3 @@
+[submodule "model/ml-mobileone"]
+	path = model/ml-mobileone
+	url = https://github.com/apple-aiml-research/ml-mobileone.git

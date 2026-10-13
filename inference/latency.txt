@@ -1,0 +1,5 @@
+Pipeline latency:
+Crop time: 1.3333 ms
+Crop time (with object): 1.7473 ms
+Classification time: 5.3675 ms
+E2E time: 8.9352 ms

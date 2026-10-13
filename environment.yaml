@@ -1,0 +1,27 @@
+name: ars-trg-sp1_mini-project
+channels:
+  - pytorch
+  - nvidia
+  - conda-forge
+  - defaults
+dependencies:
+  - python=3.10
+  - pip
+  - numpy
+  - scipy
+  - pandas
+  - matplotlib
+  - seaborn
+  - pillow
+  - pyyaml
+  - tqdm
+  - scikit-learn
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.1
+  - pip:
+      - opencv-python
+      - tensorboard
+      - torchmetrics
+      - ipywidgets

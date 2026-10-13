@@ -1,0 +1,58 @@
+# Dataset files and extracted frames
+dataset/raw_data/
+dataset/raw_frames/
+dataset/cropped_frames/
+*.avi
+*.mp4
+*.mov
+*.mkv
+*.zip
+dataset/deduplicated_cropped_frames/
+
+# Model weights & checkpoints
+*.pt
+*.pth
+*.onnx
+*.weights
+*.pth.tar
+
+# Training runs & logs
+runs/
+logs/
+
+# Python cache & build
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Others
+dataset/temp/
+pyrightconfig.json
+docs/
