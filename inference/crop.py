@@ -76,10 +76,10 @@ def extract_and_crop_object(
     bg_blurred: np.ndarray,
     lut_table: np.ndarray = None,
     blur_ksize: tuple = (17, 17),
-    thresh_val: int = 50,
+    threshold_value: int = 60,
     close_ksize: int = 51,
     padding_pct: float = 0.05,
-    edge_margin: int = 25,
+    edge_margin: int = 10,
 ) -> Tuple[Optional[np.ndarray], Optional[Tuple[int, int, int, int]]]:
     """
     Finds the object bounding box and crops it.
@@ -94,14 +94,14 @@ def extract_and_crop_object(
 
     # 1. Blur and background subtraction
     img_blurred = cv2.blur(img, blur_ksize)
-    diff = cv2.absdiff(img_blurred, bg_blurred)
+    diff = 3*cv2.absdiff(img_blurred, bg_blurred)
 
     # 2. Extract V channel & apply gamma suppression
     v_channel = cv2.cvtColor(diff, cv2.COLOR_BGR2HSV)[:, :, 2]
     v_suppressed = cv2.LUT(v_channel, lut_table)
 
     # 3. Binary Threshold & Morphological Close
-    _, binary = cv2.threshold(v_suppressed, thresh_val, 255, cv2.THRESH_BINARY)
+    _, binary = cv2.threshold(v_suppressed, threshold_value, 255, cv2.THRESH_BINARY)
 
     kernel_close = cv2.getStructuringElement(cv2.MORPH_RECT, (close_ksize, close_ksize))
     mask_closed = cv2.morphologyEx(binary, cv2.MORPH_CLOSE, kernel_close)
@@ -111,8 +111,16 @@ def extract_and_crop_object(
     if not contours:
         return None, None
 
+    valid_contours = []
+    for contour in contours:
+        if cv2.contourArea(contour) > (H*W/100):
+            valid_contours.append(contour)
+
+    if not valid_contours:
+        return None, None
+
     # Convex hull of all foreground contours to get single cohesive bounding box
-    all_pts = np.vstack(contours)
+    all_pts = np.vstack(valid_contours)
     hull = cv2.convexHull(all_pts)
     x, y, bw, bh = cv2.boundingRect(hull)
 

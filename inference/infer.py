@@ -94,7 +94,7 @@ def draw_overlay(
 
 
 def main(debug: bool = True):
-    video_path = "/home/filelele/personal_project/belt-conveyor-object-count/inference/video_test_1.avi"
+    video_path = "/home/filelele/personal_project/belt-conveyor-object-count/inference/input/video_test_1.avi"
     checkpoint_path = "/home/filelele/personal_project/belt-conveyor-object-count/training/checkpoints/mobileone_s4_final_fused.pth"
     output_video_path = "/home/filelele/personal_project/belt-conveyor-object-count/inference/output/output_counted.mp4"
     
@@ -154,10 +154,10 @@ def main(debug: bool = True):
             bg_blurred=bg_blurred, 
             lut_table=lut_table,
             blur_ksize=(17,17),
-            thresh_val=50,
+            threshold_value=150,
             close_ksize=51,
             padding_pct=0.05,
-            edge_margin=25
+            edge_margin=0
         )
         crop_end_time = time.perf_counter()
         if bbox is not None:
