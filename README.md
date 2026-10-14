@@ -1,6 +1,6 @@
 <h1 align="center">Object Counter on Belt conveyor</h1>
 
-https://github.com/user-attachments/assets/2fe898d9-849a-4579-944e-46437050bf48
+https://github.com/user-attachments/assets/29df744f-0154-450d-9bb3-bb5285eaaa30
 
 ## Problem statement
 
