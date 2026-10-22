@@ -124,32 +124,22 @@ To evaluate performance without bias toward majority classes, we evaluate using:
 
 | Metric | Score |
 | :--- | :--- |
-| **Accuracy** | 99.13% |
-| **Macro Precision** | 0.9922|
-| **Macro Recall** | 0.9913 |
-| **Macro F1-Score** | 0.9915 |
+| **Accuracy** | 100.00% |
+| **Macro Precision** | 1.0000|
+| **Macro Recall** | 1.0000 |
+| **Macro F1-Score** | 1.0000 |
 
 ![confusion_matrix](training/output/final_train_cf_matrix.png)
-
-Fail cases:
-
-<p align="center">
-  <img src="training/output/failed_cases.png" width="48%" style="vertical-align: middle;">
-  <img src="readme_assets/fail_case_tipo.jpg" width="24%" style="vertical-align: middle;">
-  <img src="readme_assets/fail_case_karo.jpg" width="24%" style="vertical-align: middle;">
-</p>
-
-Failed only on severe motion blur or glare, which are rare in deployed hardware setup. Also, the wrongly predicted class is visually similar to the actual class.
 
 ### Pipeline latency
 
 Pipeline processing consists of mainly 2 parts: Object cropping and classification. The benchmark as below:
 
 Latency:
-- Crop time: 1.3333 ms
-- Crop time (with object): 1.7473 ms
-- Classification time: 5.3675 ms
-- E2E time: 8.9352 ms
+- Crop time: 1.2465 ms
+- Crop time (with object): 1.8444 ms
+- Classification time: 3.2223 ms
+- E2E time: 7.9852 ms
 
 Hardware: 
 

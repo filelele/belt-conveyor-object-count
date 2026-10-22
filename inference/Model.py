@@ -6,6 +6,7 @@ from PIL import Image
 import torch
 import torch.nn as nn
 from torchvision import transforms
+import time
 
 # Add model path to sys.path so mobileone can be imported cleanly
 _MOBILEONE_DIR = Path(__file__).resolve().parent.parent / "model" / "ml-mobileone"
@@ -83,7 +84,7 @@ class Model:
             ),
         ])
 
-    def process_frame(self, frame: np.ndarray) -> str:
+    def process_frame(self, frame: np.ndarray) -> tuple[str, float]:
         """
         Processes a BGR/RGB numpy array frame, passes it through the model,
         and returns the predicted class label string.
@@ -101,6 +102,7 @@ class Model:
         else:
             pil_img = Image.fromarray(frame)
 
+        start_time = time.perf_counter()
         # Transform and add batch dimension -> (1, 3, 224, 224)
         input_tensor = self.transform(pil_img).unsqueeze(0).to(self.device)
 
@@ -108,4 +110,5 @@ class Model:
         with torch.no_grad():
             outputs = self.model(input_tensor)
             pred_idx = outputs.argmax(dim=1).item()
-            return self.class_names[pred_idx]
+            end_time = time.perf_counter()
+            return self.class_names[pred_idx], end_time - start_time

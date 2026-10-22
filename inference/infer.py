@@ -95,7 +95,7 @@ def draw_overlay(
 
 def main(debug: bool = True):
     video_path = "/home/filelele/personal_project/belt-conveyor-object-count/inference/input/video_test_1.avi"
-    checkpoint_path = "/home/filelele/personal_project/belt-conveyor-object-count/training/checkpoints/mobileone_s4_final_fused.pth"
+    checkpoint_path = "/home/filelele/personal_project/belt-conveyor-object-count/training/checkpoints/mobileone_s0_final_fused.pth"
     output_video_path = "/home/filelele/personal_project/belt-conveyor-object-count/inference/output/output_counted.mp4"
     
     crop_times_no_object = []
@@ -108,7 +108,7 @@ def main(debug: bool = True):
 
     # 1. Initialize Video Stream (pass debug mode) & Model
     stream = VideoStream(video_path, debug=debug)
-    model = Model(checkpoint_path=checkpoint_path, variant="s4")
+    model = Model(checkpoint_path=checkpoint_path, variant="s0")
 
     # Resize ratio
     resize_ratio = 0.25
@@ -169,10 +169,9 @@ def main(debug: bool = True):
             # Object is in view
             none_consecutive = 0
             has_active_object = True
-            current_label = model.process_frame(cropped_obj)
+            current_label, inference_time = model.process_frame(cropped_obj)
             temp_counter[current_label] += 1
-            classification_end_time = time.perf_counter()
-            classification_times.append(classification_end_time - crop_end_time)
+            classification_times.append(inference_time)
         else:
             # No object detected or object touching frame edge
             none_consecutive += 1
